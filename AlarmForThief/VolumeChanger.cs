@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VolumeChanger : MonoBehaviour
+public class AlarmController : MonoBehaviour
 {
     [SerializeField] private AudioSource _audio;
     [SerializeField] private float _duration;
+    
     private float _volume;
     private float _volumeScale;
     private float _runningTime;
