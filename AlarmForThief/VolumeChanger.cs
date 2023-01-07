@@ -13,34 +13,35 @@ public class VolumeChanger : MonoBehaviour
 
     private void Start()
     {
-        _volume= 0f;
+        _volume = 0f;
         _audio.volume = _volume;
     }
 
-    public void Change()
+    public void ChangeUp()
     {
-        _runningTime += Time.deltaTime;
-        _volumeScale = _runningTime / _duration;
+        _audio.Play();
+        var volumeChanger = StartCoroutine(ChangeVolume(1));
+    }
 
-        if(_audio.volume == _volume )
-        {
-            _audio.Play();
-            _target = 1f;
-            var volumeChanger = StartCoroutine(ChangeVolume(_target));
-        }
-        else
-        {
-            _target = 0f;
-            var volumeChanger = StartCoroutine(ChangeVolume(_target));
-        }
+    public void ChangeDown()
+    {
+        var volumeChanger = StartCoroutine(ChangeVolume(0));
     }
 
     private IEnumerator ChangeVolume(float target)
     {
+            _runningTime += Time.deltaTime;
+            _volumeScale = _runningTime / _duration;
         while (_audio.volume != target)
         {
-            _audio.volume = Mathf.MoveTowards(_audio.volume, _target, _volumeScale);
+
+            _audio.volume = Mathf.MoveTowards(_audio.volume, target, _volumeScale);
             yield return null;
+
+            if(_audio.volume == _volume)
+            {
+                _audio.Stop();
+            }
         }
     }
 }
