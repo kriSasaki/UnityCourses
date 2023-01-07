@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlarmController : MonoBehaviour
+public class AlarmVolume : MonoBehaviour
 {
     [SerializeField] private AudioSource _audio;
     [SerializeField] private float _duration;
