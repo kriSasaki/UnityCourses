@@ -9,7 +9,6 @@ public class VolumeChanger : MonoBehaviour
     private float _volume;
     private float _volumeScale;
     private float _runningTime;
-    private float _target;
 
     private void Start()
     {
@@ -30,15 +29,15 @@ public class VolumeChanger : MonoBehaviour
 
     private IEnumerator ChangeVolume(float target)
     {
-            _runningTime += Time.deltaTime;
-            _volumeScale = _runningTime / _duration;
         while (_audio.volume != target)
         {
+            _runningTime += Time.deltaTime;
+            _volumeScale = _runningTime / _duration;
 
             _audio.volume = Mathf.MoveTowards(_audio.volume, target, _volumeScale);
             yield return null;
 
-            if(_audio.volume == _volume)
+            if (_audio.volume == _volume)
             {
                 _audio.Stop();
             }
