@@ -6,7 +6,8 @@ public class AlarmVolume : MonoBehaviour
 {
     [SerializeField] private AudioSource _audio;
     [SerializeField] private float _duration;
-    
+
+    private Coroutine _volumeChanger;
     private float _volume;
     private float _volumeScale;
     private float _runningTime;
@@ -20,20 +21,34 @@ public class AlarmVolume : MonoBehaviour
     public void ChangeUp()
     {
         _audio.Play();
-        var volumeChanger = StartCoroutine(ChangeVolume(1));
+        StartChangeVolume(1);
     }
 
     public void ChangeDown()
     {
-        var volumeChanger = StartCoroutine(ChangeVolume(0));
+        StartChangeVolume(0);
+    }
+
+    private void StartChangeVolume(float target)
+    {
+        if (_volumeChanger != null)
+        {
+            StopCoroutine(_volumeChanger);
+            _volumeChanger = StartCoroutine(ChangeVolume(target));
+        }
+        else
+        {
+            _volumeChanger = StartCoroutine(ChangeVolume(target));
+        }
     }
 
     private IEnumerator ChangeVolume(float target)
     {
+        _runningTime += Time.deltaTime;
+        _volumeScale = _runningTime / _duration;
+
         while (_audio.volume != target)
         {
-            _runningTime += Time.deltaTime;
-            _volumeScale = _runningTime / _duration;
 
             _audio.volume = Mathf.MoveTowards(_audio.volume, target, _volumeScale);
             yield return null;
