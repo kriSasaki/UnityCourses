@@ -5,12 +5,10 @@ using UnityEngine;
 public class AlarmVolume : MonoBehaviour
 {
     [SerializeField] private AudioSource _audio;
-    [SerializeField] private float _duration;
 
     private Coroutine _volumeChanger;
     private float _volume;
     private float _volumeScale;
-    private float _runningTime;
 
     private void Start()
     {
@@ -44,8 +42,7 @@ public class AlarmVolume : MonoBehaviour
 
     private IEnumerator ChangeVolume(float target)
     {
-        _runningTime += Time.deltaTime;
-        _volumeScale = _runningTime / _duration;
+        _volumeScale = 0.0005f;
 
         while (_audio.volume != target)
         {
