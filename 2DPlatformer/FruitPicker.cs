@@ -10,7 +10,7 @@ public class FruitPicker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Fruit"))
+        if(collision.TryGetComponent(out Fruit fruit))
         {
             _coinsAmount++;
             _coinsText.text = _coinsAmount.ToString();
