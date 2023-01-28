@@ -89,7 +89,7 @@ public class PhysicsMovement : MonoBehaviour
         Movement(move, true);
     }
 
-    private void Movement(Vector2 move, bool yMovement)
+    private void Move(Vector2 move, bool yMovement)
     {
         float distance = move.magnitude;
 
