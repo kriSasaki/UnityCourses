@@ -31,21 +31,21 @@ public class PhysicsMovement : MonoBehaviour
     private const string Speed = "Speed";
     private const string IsGrounded = "IsGrounded";
 
-    void OnEnable()
+    private void OnEnable()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
 
-    void Start()
+    private void Start()
     {
         _contactFilter.useTriggers = false;
         _contactFilter.SetLayerMask(_layerMask);
         _contactFilter.useLayerMask = true;
     }
 
-    void Update()
+    private void Update()
     {
         _targetVelocity = new Vector2(Input.GetAxis("Horizontal") * _speed, 0);
 
@@ -71,7 +71,7 @@ public class PhysicsMovement : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         _velocity += _gravityModifier * Physics2D.gravity * Time.deltaTime;
         _velocity.x = _targetVelocity.x;
@@ -89,7 +89,7 @@ public class PhysicsMovement : MonoBehaviour
         Movement(move, true);
     }
 
-    void Movement(Vector2 move, bool yMovement)
+    private void Movement(Vector2 move, bool yMovement)
     {
         float distance = move.magnitude;
 
