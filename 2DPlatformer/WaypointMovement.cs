@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class WaypointMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -12,6 +14,8 @@ public class WaypointMovement : MonoBehaviour
     private int _rightDirection = 1;
     private int _leftDirection = -1;
 
+    private const string Speed = "Speed";
+
     private void Start()
     {
         _player = GetComponent<SpriteRenderer>();
@@ -21,19 +25,19 @@ public class WaypointMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Check Point"))
+        if (collision.TryGetComponent(out CheckPoint checkPoint))
         {
             if(_currentDirection == _rightDirection)
             {
                 _player.flipX = true;
                 _currentDirection = _leftDirection;
-                _animator.SetFloat("Speed", _speed);
+                _animator.SetFloat(Speed, _speed);
             }
             else
             {
                 _player.flipX = false;
                 _currentDirection = _rightDirection;
-                _animator.SetFloat("Speed", _speed);
+                _animator.SetFloat(Speed, _speed);
             }
         }
     }
