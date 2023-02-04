@@ -14,19 +14,16 @@ public class Bar : MonoBehaviour
     {
         float targetValue = (float)value / maxValue;
 
-        if (_sliderChanger != null)
-        {
-            StopCoroutine(_sliderChanger);
-            _sliderChanger = StartCoroutine(ChangeSlider(targetValue));
-        }
-        else
-        {
-            _sliderChanger = StartCoroutine(ChangeSlider(targetValue));
-        }
+        _sliderChanger = StartCoroutine(ChangeSlider(targetValue));
     }
 
     private IEnumerator ChangeSlider(float targetValue)
     {
+        if (_sliderChanger != null)
+        {
+            StopCoroutine(_sliderChanger);
+        }
+
         while (Slider.value != targetValue)
         {
             Slider.value = Mathf.MoveTowards(Slider.value, targetValue, _changingSpeed * Time.deltaTime);
