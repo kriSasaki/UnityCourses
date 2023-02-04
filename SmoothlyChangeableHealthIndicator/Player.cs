@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public event UnityAction<int, int> HealthChanged;
     
     private int _currentHealth;
+    private int _minHealth = 1;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
 
         HealthChanged?.Invoke(_currentHealth, _health);
 
-        if (_currentHealth <= 0)
+        if (_currentHealth < _minHealth)
         {
             Destroy(gameObject);
         }
