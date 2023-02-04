@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
         _currentHealth = _health;
     }
 
-    public void ApplyDamage(int damage)
+    public void Damage(int damage)
     {
         _currentHealth -= damage;
 
@@ -28,18 +28,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ApplyHeal(int heal)
+    public void Heal(int heal)
     {
         int healedHealth = _currentHealth + heal;
 
-        if (healedHealth > _health)
-        {
-            _currentHealth = _health;
-        }
-        else
-        {
-            _currentHealth = healedHealth;
-        }
+        _currentHealth = Mathf.Clamp(healedHealth, _currentHealth, _health);
 
         HealthChanged?.Invoke(_currentHealth, _health);
     }
